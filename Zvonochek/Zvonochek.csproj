@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +64,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\AamMainPage.xaml.cs">
+      <DependentUpon>AamMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComebackPhone.xaml.cs">
+      <DependentUpon>ComebackPhone.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\BuyWindows.xaml.cs">
+      <DependentUpon>BuyWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RefundWindow.xaml.cs">
+      <DependentUpon>RefundWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,12 +84,97 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DB\Application.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\bd_connection.cs" />
+    <Compile Include="DB\CategoryRepair.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Client.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Consumables.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Employe.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Money.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Phone.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\PhoneType.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Post.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\RepairCertificate.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\StatusAplication.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\sysdiagrams.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\WarehouseCons.cs">
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\ZvonochekDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZvonochekDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\ZvonochekDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZvonochekDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\ZvonochekDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ZvonochekDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AamMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ClientMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ComebackPhone.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\BuyWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RefundWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\AuthPage.xaml.cs">
+      <DependentUpon>AuthPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ClientMainPage.xaml.cs">
+      <DependentUpon>ClientMainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +192,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="DB\ZvonochekDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ZvonochekDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\ZvonochekDB.edmx.diagram">
+      <DependentUpon>ZvonochekDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +207,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DB\ZvonochekDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ZvonochekDB.Context.cs</LastGenOutput>
+      <DependentUpon>ZvonochekDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="DB\ZvonochekDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ZvonochekDB.edmx</DependentUpon>
+      <LastGenOutput>ZvonochekDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

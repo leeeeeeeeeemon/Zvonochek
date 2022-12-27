@@ -1,0 +1,764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ZvonochekModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Client" Type="int" />
+          <Property Name="Id_Phone" Type="int" />
+          <Property Name="Id_StatusAplication" Type="int" />
+        </EntityType>
+        <EntityType Name="CategoryRepair">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Consumables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Money" Type="int" />
+        </EntityType>
+        <EntityType Name="Employe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id_Post" Type="int" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Money">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="id_PhoneType" Type="int" />
+          <Property Name="Money" Type="int" />
+          <Property Name="Purchased" Type="int" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RepairCertificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Client" Type="int" />
+          <Property Name="Id_Phone" Type="int" />
+          <Property Name="Id_CategoryRepair" Type="int" />
+          <Property Name="Money" Type="int" />
+          <Property Name="Id_Cons" Type="int" />
+        </EntityType>
+        <EntityType Name="StatusAplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="WarehouseCons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Cons" Type="int" />
+          <Property Name="value" Type="int" />
+        </EntityType>
+        <Association Name="FK_Application_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_Phone">
+          <End Role="Phone" Type="Self.Phone" Multiplicity="0..1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_StatusAplication">
+          <End Role="StatusAplication" Type="Self.StatusAplication" Multiplicity="0..1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusAplication">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="Id_StatusAplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employe_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Employe" Type="Self.Employe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employe">
+              <PropertyRef Name="Id_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_PhoneType">
+          <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="id_PhoneType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_CategoryRepair">
+          <End Role="CategoryRepair" Type="Self.CategoryRepair" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryRepair">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_CategoryRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_Consumables">
+          <End Role="Consumables" Type="Self.Consumables" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumables">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_Cons" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_Phone">
+          <End Role="Phone" Type="Self.Phone" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseCons_Consumables">
+          <End Role="Consumables" Type="Self.Consumables" Multiplicity="0..1" />
+          <End Role="WarehouseCons" Type="Self.WarehouseCons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumables">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseCons">
+              <PropertyRef Name="Id_Cons" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ZvonochekModelContainer">
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryRepair" EntityType="Self.CategoryRepair" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consumables" EntityType="Self.Consumables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employe" EntityType="Self.Employe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Money" EntityType="Self.Money" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneType" EntityType="Self.PhoneType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepairCertificate" EntityType="Self.RepairCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusAplication" EntityType="Self.StatusAplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarehouseCons" EntityType="Self.WarehouseCons" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Application_Client" Association="Self.FK_Application_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_Phone" Association="Self.FK_Application_Phone">
+            <End Role="Phone" EntitySet="Phone" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_StatusAplication" Association="Self.FK_Application_StatusAplication">
+            <End Role="StatusAplication" EntitySet="StatusAplication" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employe_Post" Association="Self.FK_Employe_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employe" EntitySet="Employe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_PhoneType" Association="Self.FK_Phone_PhoneType">
+            <End Role="PhoneType" EntitySet="PhoneType" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_CategoryRepair" Association="Self.FK_RepairCertificate_CategoryRepair">
+            <End Role="CategoryRepair" EntitySet="CategoryRepair" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_Client" Association="Self.FK_RepairCertificate_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_Consumables" Association="Self.FK_RepairCertificate_Consumables">
+            <End Role="Consumables" EntitySet="Consumables" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_Phone" Association="Self.FK_RepairCertificate_Phone">
+            <End Role="Phone" EntitySet="Phone" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarehouseCons_Consumables" Association="Self.FK_WarehouseCons_Consumables">
+            <End Role="Consumables" EntitySet="Consumables" />
+            <End Role="WarehouseCons" EntitySet="WarehouseCons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZvonochekModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Client" Type="Int32" />
+          <Property Name="Id_Phone" Type="Int32" />
+          <Property Name="Id_StatusAplication" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Application_Client" FromRole="Application" ToRole="Client" />
+          <NavigationProperty Name="Phone" Relationship="Self.FK_Application_Phone" FromRole="Application" ToRole="Phone" />
+          <NavigationProperty Name="StatusAplication" Relationship="Self.FK_Application_StatusAplication" FromRole="Application" ToRole="StatusAplication" />
+        </EntityType>
+        <EntityType Name="CategoryRepair">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RepairCertificate" Relationship="Self.FK_RepairCertificate_CategoryRepair" FromRole="CategoryRepair" ToRole="RepairCertificate" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Application_Client" FromRole="Client" ToRole="Application" />
+          <NavigationProperty Name="RepairCertificate" Relationship="Self.FK_RepairCertificate_Client" FromRole="Client" ToRole="RepairCertificate" />
+        </EntityType>
+        <EntityType Name="Consumables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Money" Type="Int32" />
+          <NavigationProperty Name="RepairCertificate" Relationship="Self.FK_RepairCertificate_Consumables" FromRole="Consumables" ToRole="RepairCertificate" />
+          <NavigationProperty Name="WarehouseCons" Relationship="Self.FK_WarehouseCons_Consumables" FromRole="Consumables" ToRole="WarehouseCons" />
+        </EntityType>
+        <EntityType Name="Employe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Post" Type="Int32" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Employe_Post" FromRole="Employe" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Money">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id_PhoneType" Type="Int32" />
+          <Property Name="Money" Type="Int32" />
+          <Property Name="Purchased" Type="Int32" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Application_Phone" FromRole="Phone" ToRole="Application" />
+          <NavigationProperty Name="PhoneType" Relationship="Self.FK_Phone_PhoneType" FromRole="Phone" ToRole="PhoneType" />
+          <NavigationProperty Name="RepairCertificate" Relationship="Self.FK_RepairCertificate_Phone" FromRole="Phone" ToRole="RepairCertificate" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Phone" Relationship="Self.FK_Phone_PhoneType" FromRole="PhoneType" ToRole="Phone" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employe" Relationship="Self.FK_Employe_Post" FromRole="Post" ToRole="Employe" />
+        </EntityType>
+        <EntityType Name="RepairCertificate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Client" Type="Int32" />
+          <Property Name="Id_Phone" Type="Int32" />
+          <Property Name="Id_CategoryRepair" Type="Int32" />
+          <Property Name="Money" Type="Int32" />
+          <Property Name="Id_Cons" Type="Int32" />
+          <NavigationProperty Name="CategoryRepair" Relationship="Self.FK_RepairCertificate_CategoryRepair" FromRole="RepairCertificate" ToRole="CategoryRepair" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_RepairCertificate_Client" FromRole="RepairCertificate" ToRole="Client" />
+          <NavigationProperty Name="Consumables" Relationship="Self.FK_RepairCertificate_Consumables" FromRole="RepairCertificate" ToRole="Consumables" />
+          <NavigationProperty Name="Phone" Relationship="Self.FK_RepairCertificate_Phone" FromRole="RepairCertificate" ToRole="Phone" />
+        </EntityType>
+        <EntityType Name="StatusAplication">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Application_StatusAplication" FromRole="StatusAplication" ToRole="Application" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="WarehouseCons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Cons" Type="Int32" />
+          <Property Name="value" Type="Int32" />
+          <NavigationProperty Name="Consumables" Relationship="Self.FK_WarehouseCons_Consumables" FromRole="WarehouseCons" ToRole="Consumables" />
+        </EntityType>
+        <Association Name="FK_Application_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_Phone">
+          <End Role="Phone" Type="Self.Phone" Multiplicity="0..1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Application_StatusAplication">
+          <End Role="StatusAplication" Type="Self.StatusAplication" Multiplicity="0..1" />
+          <End Role="Application" Type="Self.Application" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusAplication">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Application">
+              <PropertyRef Name="Id_StatusAplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_CategoryRepair">
+          <End Role="CategoryRepair" Type="Self.CategoryRepair" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryRepair">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_CategoryRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_Consumables">
+          <End Role="Consumables" Type="Self.Consumables" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumables">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_Cons" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseCons_Consumables">
+          <End Role="Consumables" Type="Self.Consumables" Multiplicity="0..1" />
+          <End Role="WarehouseCons" Type="Self.WarehouseCons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumables">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseCons">
+              <PropertyRef Name="Id_Cons" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employe_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Employe" Type="Self.Employe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employe">
+              <PropertyRef Name="Id_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_PhoneType">
+          <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="id_PhoneType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepairCertificate_Phone">
+          <End Role="Phone" Type="Self.Phone" Multiplicity="0..1" />
+          <End Role="RepairCertificate" Type="Self.RepairCertificate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Phone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepairCertificate">
+              <PropertyRef Name="Id_Phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZvonochekEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Application" EntityType="Self.Application" />
+          <EntitySet Name="CategoryRepair" EntityType="Self.CategoryRepair" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Consumables" EntityType="Self.Consumables" />
+          <EntitySet Name="Employe" EntityType="Self.Employe" />
+          <EntitySet Name="Money" EntityType="Self.Money" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" />
+          <EntitySet Name="PhoneType" EntityType="Self.PhoneType" />
+          <EntitySet Name="Post" EntityType="Self.Post" />
+          <EntitySet Name="RepairCertificate" EntityType="Self.RepairCertificate" />
+          <EntitySet Name="StatusAplication" EntityType="Self.StatusAplication" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="WarehouseCons" EntityType="Self.WarehouseCons" />
+          <AssociationSet Name="FK_Application_Client" Association="Self.FK_Application_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_Phone" Association="Self.FK_Application_Phone">
+            <End Role="Phone" EntitySet="Phone" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Application_StatusAplication" Association="Self.FK_Application_StatusAplication">
+            <End Role="StatusAplication" EntitySet="StatusAplication" />
+            <End Role="Application" EntitySet="Application" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_CategoryRepair" Association="Self.FK_RepairCertificate_CategoryRepair">
+            <End Role="CategoryRepair" EntitySet="CategoryRepair" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_Client" Association="Self.FK_RepairCertificate_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_Consumables" Association="Self.FK_RepairCertificate_Consumables">
+            <End Role="Consumables" EntitySet="Consumables" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarehouseCons_Consumables" Association="Self.FK_WarehouseCons_Consumables">
+            <End Role="Consumables" EntitySet="Consumables" />
+            <End Role="WarehouseCons" EntitySet="WarehouseCons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employe_Post" Association="Self.FK_Employe_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employe" EntitySet="Employe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_PhoneType" Association="Self.FK_Phone_PhoneType">
+            <End Role="PhoneType" EntitySet="PhoneType" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepairCertificate_Phone" Association="Self.FK_RepairCertificate_Phone">
+            <End Role="Phone" EntitySet="Phone" />
+            <End Role="RepairCertificate" EntitySet="RepairCertificate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ZvonochekModelContainer" CdmEntityContainer="ZvonochekEntities">
+          <EntitySetMapping Name="Application">
+            <EntityTypeMapping TypeName="ZvonochekModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+                <ScalarProperty Name="Id_Phone" ColumnName="Id_Phone" />
+                <ScalarProperty Name="Id_StatusAplication" ColumnName="Id_StatusAplication" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryRepair">
+            <EntityTypeMapping TypeName="ZvonochekModel.CategoryRepair">
+              <MappingFragment StoreEntitySet="CategoryRepair">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ZvonochekModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consumables">
+            <EntityTypeMapping TypeName="ZvonochekModel.Consumables">
+              <MappingFragment StoreEntitySet="Consumables">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employe">
+            <EntityTypeMapping TypeName="ZvonochekModel.Employe">
+              <MappingFragment StoreEntitySet="Employe">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id_Post" ColumnName="Id_Post" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Money">
+            <EntityTypeMapping TypeName="ZvonochekModel.Money">
+              <MappingFragment StoreEntitySet="Money">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phone">
+            <EntityTypeMapping TypeName="ZvonochekModel.Phone">
+              <MappingFragment StoreEntitySet="Phone">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="id_PhoneType" ColumnName="id_PhoneType" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="Purchased" ColumnName="Purchased" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneType">
+            <EntityTypeMapping TypeName="ZvonochekModel.PhoneType">
+              <MappingFragment StoreEntitySet="PhoneType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="ZvonochekModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepairCertificate">
+            <EntityTypeMapping TypeName="ZvonochekModel.RepairCertificate">
+              <MappingFragment StoreEntitySet="RepairCertificate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Client" ColumnName="Id_Client" />
+                <ScalarProperty Name="Id_Phone" ColumnName="Id_Phone" />
+                <ScalarProperty Name="Id_CategoryRepair" ColumnName="Id_CategoryRepair" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="Id_Cons" ColumnName="Id_Cons" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusAplication">
+            <EntityTypeMapping TypeName="ZvonochekModel.StatusAplication">
+              <MappingFragment StoreEntitySet="StatusAplication">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ZvonochekModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseCons">
+            <EntityTypeMapping TypeName="ZvonochekModel.WarehouseCons">
+              <MappingFragment StoreEntitySet="WarehouseCons">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Cons" ColumnName="Id_Cons" />
+                <ScalarProperty Name="value" ColumnName="value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

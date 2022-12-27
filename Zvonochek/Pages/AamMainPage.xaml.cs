@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Zvonochek
+namespace Zvonochek.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для AamMainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AamMainPage : Page
     {
-        public MainWindow()
+        public AamMainPage()
         {
             InitializeComponent();
-            navFrame.NavigationService.Navigate(new Pages.AuthPage());
         }
     }
 }
